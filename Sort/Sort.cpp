@@ -28,16 +28,16 @@ void selectionSort(int* a, int n) {
 	}
 }
 void merge(int* a, int p, int q, int r) {
-	int* L = new int[r];
+	int* L = new int[r-p+1];
 	int index = p, i = p, j = q + 1;
 	while (!((i > q) || (j > r))) {
 		if (a[i] <= a[j]) {
-			L[index] = a[i];
+			L[index-p] = a[i];
 			index++;
 			i++;
 		}
 		else {
-			L[index] = a[j];
+			L[index-p] = a[j];
 			index++;
 			j++;
 		}
@@ -45,19 +45,19 @@ void merge(int* a, int p, int q, int r) {
 	if (i == (q + 1)) {
 		int tempJ = j;
 		for (int temp = index; temp <= r; temp++) {
-			L[temp] = a[tempJ];
+			L[temp-p] = a[tempJ];
 			tempJ++;
 		}
 	}
 	if (j == (r + 1)) {
 		int tempI = i;
 		for (int temp = index; temp <= r; temp++) {
-			L[temp] = a[tempI];
+			L[temp-p] = a[tempI];
 			tempI++;
 		}
 	}
 	for (int temp = p; temp <= r; temp++) {
-		a[temp] = L[temp];
+		a[temp] = L[temp-p];
 	}
 }
 void mergeSort(int* a, int p, int r) {
@@ -68,6 +68,7 @@ void mergeSort(int* a, int p, int r) {
 		merge(a, p, q, r);
 	}
 }
+
 int partition(int* a, int p, int r) {
 	int q = (p+r) / 2;
 	int chot = a[q];
